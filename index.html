@@ -5,19 +5,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="styles.css" />
-        <script src="script.js"></script>
+        <script src="script.js" defer></script>
         <title>DIGITAL STOP WATCH</title>
     </head>
     <body>
+        <div class="bg-img"></div>
+        <button class="bg-button">CHANGE BACKGROUND</button>
         <div class="container">
             <div class="clock">
-                <p class="digits">00:00</p>
+                <p class="digit" id="tens-secs">0</p>
+                <p class="digit" id="secs">0</p>
+                <p class="digit">:</p>
+                <p class="digit" id="tens-msecs">0</p>
+                <p class="digit" id="msecs">0</p>
             </div>
             <div>
-                <button id="start-button">START</button>
-                <button id="stop-button">STOP</button>
-                <button id="split-button">SPLIT</button>
-                <button id="reset-button">RESET</button>
+                <button class="button" id="start-button">START</button>
+                <button class="button" id="stop-button">STOP</button>
+                <button class="button" id="split-button">SPLIT</button>
+                <button class="button" id="reset-button">RESET</button>
             </div>
             <div class="time-container">
                 <ul></ul>
