@@ -13,11 +13,14 @@
         <button class="bg-button">CHANGE BACKGROUND</button>
         <div class="container">
             <div class="clock">
-                <p class="digit" id="tens-secs">0</p>
-                <p class="digit" id="secs">0</p>
+                <p class="digit" id="hour-ten">0</p>
+                <p class="digit" id="hour">0</p>
                 <p class="digit">:</p>
-                <p class="digit" id="tens-msecs">0</p>
-                <p class="digit" id="msecs">0</p>
+                <p class="digit" id="min-ten">0</p>
+                <p class="digit" id="min">0</p>
+                <p class="digit">:</p>
+                <p class="digit" id="sec-ten">0</p>
+                <p class="digit" id="sec">0</p>
             </div>
             <div>
                 <button class="button" id="start-button">START</button>
@@ -25,9 +28,12 @@
                 <button class="button" id="split-button">SPLIT</button>
                 <button class="button" id="reset-button">RESET</button>
             </div>
-            <div class="time-container">
-                <ul></ul>
+            <div class="milli-container">
+                <p class="milli" id="m-secs">000</p>
             </div>
+        </div>
+        <div class="time-container">
+            <ul></ul>
         </div>
     </body>
 </html>

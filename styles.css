@@ -42,7 +42,7 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     padding: 30px;
     border-radius: 5px;
@@ -51,18 +51,30 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    white-space: nowrap;
 }
 
 .clock {
     margin-bottom: 20px;
 }
 
-.digit {
+.digit,
+.milli {
     display: inline;
     color: red;
     font-size: 60px;
     font-family: digitalFont, sans-serif;
     margin: 0;
+}
+
+.milli-container {
+    position: absolute;
+    top: 100px;
+    left: 410px;
+}
+
+.milli {
+    font-size: 10px;
 }
 
 .button {
