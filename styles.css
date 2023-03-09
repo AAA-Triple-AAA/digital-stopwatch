@@ -1,0 +1,25 @@
+@font-face {
+    font-family: digitalFont;
+    src: url(./digital-dream.fat.ttf);
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.digits {
+    font-size: 60px;
+    font-family: digitalFont, sans-serif;
+}
