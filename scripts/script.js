@@ -13,8 +13,6 @@ const resetButton = document.querySelector("#reset-button");
 const changeBGButton = document.querySelector("#change-bg");
 
 // Target individual clock elements
-const clock = document.querySelector(".clock");
-
 const milliText = document.querySelector("#m-secs");
 const secondsText = document.querySelector("#sec");
 const minsText = document.querySelector("#min");
@@ -82,6 +80,8 @@ function updateStopwatch() {
     if (hours > 99) {
         stopStopwatch();
     }
+
+    console.log(seconds);
 }
 
 function milliseconds() {
@@ -89,6 +89,20 @@ function milliseconds() {
     let currTime = date.getTime() + elapsedTime - startTime;
     return currTime;
 }
+
+// Function to reset all variables and time displayed
+function reset() {
+    stopStopwatch();
+    elapsedTime = 0;
+    minuteCount = 0;
+    hourCount = 0;
+    milliText.textContent = "000";
+    secondsText.textContent = "00";
+    minsText.textContent = "00";
+    hoursText.textContent = "00";
+}
+
+// TODO: SPLIT BUTTON FUNCTIONALITY
 
 // Change Background Function
 function changeBG() {
@@ -104,3 +118,4 @@ function changeBG() {
 // Event Listeners
 changeBGButton.addEventListener("click", changeBG);
 startStop.addEventListener("click", startStopwatch);
+resetButton.addEventListener("click", reset);
