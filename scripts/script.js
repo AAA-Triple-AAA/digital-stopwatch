@@ -1,12 +1,4 @@
-// Image Information
-let imageIndex = 0;
-const imageArray = [
-    "../images/mountain-climbing.jpg",
-    "../images/track-and-field.jpg",
-    "../images/swimming-pool.jpg",
-    "../images/school-gym.jpg",
-];
-const bgImage = document.querySelector(".bg-img");
+const bg = document.querySelector(".bg");
 const changeBGButton = document.querySelector("#change-bg");
 
 // Stopwatch timer control buttons
@@ -195,12 +187,10 @@ function clearTimes() {
 // Change Background Function
 function changeBG() {
     // If at the last background in array, change to the first
-    if (imageIndex === imageArray.length - 1) {
-        imageIndex = 0;
-    } else {
-        imageIndex++;
-    }
-    bgImage.style.backgroundImage = `url(${imageArray[imageIndex]})`;
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    bg.style.background = `rgb(${r}, ${g}, ${b})`;
 }
 
 // Hover functionality for start and stop button
@@ -247,6 +237,8 @@ const scrollToBottom = () => {
     timeContainer.scrollTo(0, timesList.children.length * 31);
     console.log(timesList.children.length * 31);
 };
+
+changeBG();
 
 // Event Listeners
 changeBGButton.addEventListener("click", changeBG, 100);
