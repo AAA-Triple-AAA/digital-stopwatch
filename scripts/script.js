@@ -3,6 +3,8 @@ let imageIndex = 0;
 const imageArray = [
     "../images/mountain-climbing.jpg",
     "../images/track-and-field.jpg",
+    "../images/swimming-pool.jpg",
+    "../images/school-gym.jpg",
 ];
 const bgImage = document.querySelector(".bg-img");
 
@@ -11,6 +13,7 @@ const startStop = document.querySelector("#start-stop-button");
 const splitButton = document.querySelector("#split-button");
 const resetButton = document.querySelector("#reset-button");
 const changeBGButton = document.querySelector("#change-bg");
+const copyButton = document.querySelector(".copy");
 
 // Target individual clock elements
 const milliText = document.querySelector("#m-secs");
@@ -22,6 +25,10 @@ const hoursText = document.querySelector("#hour");
 const timeContainer = document.querySelector(".times-container");
 const timesList = document.querySelector(".times");
 const clearTimesButton = document.querySelector(".clear-button");
+
+// Copy Elements
+const copyMessage = document.querySelector(".copy-message");
+const copyText = document.querySelector(".copied-text");
 
 // Time variables
 let startTime;
@@ -40,11 +47,13 @@ function startStopwatch(e) {
         elapsedTime = new Date().getTime() - startTime + elapsedTime;
         isRunning = false;
         e.target.textContent = "START";
-        e.target.style = "background-color: green;";
+        e.target.style.backgroundColor = "green";
+        e.target.style.color = "black";
     } else {
+        startTime = new Date().getTime();
         e.target.textContent = "STOP";
         e.target.style.backgroundColor = "red";
-        startTime = new Date().getTime();
+        e.target.style.color = "black";
         if (firstRun) {
             lastSnapshot = startTime;
         }
@@ -106,6 +115,7 @@ function milliseconds() {
 function reset() {
     if (!isRunning) {
         stopStopwatch();
+        clearTimes();
         elapsedTime = 0;
         minuteCount = 0;
         hourCount = 0;
@@ -132,6 +142,8 @@ function addTime() {
 
         timesList.append(listItem);
 
+        scrollToBottom();
+
         return intervalDisplay;
     }
 }
@@ -146,6 +158,11 @@ function generateIntervalDisplay(interval) {
         milliInterval = "00" + milliInterval;
     } else if (milliInterval < 100) {
         milliInterval = "0" + milliInterval;
+    }
+
+    // SAFEGUARD
+    if (milliInterval.length > 3) {
+        milliInterval = milliInterval.slice(-3);
     }
 
     let secondInterval = Math.floor(interval / 1000);
@@ -182,9 +199,55 @@ function changeBG() {
     bgImage.style.backgroundImage = `url(${imageArray[imageIndex]})`;
 }
 
+function changeButtonColor(e) {
+    if (e.type === "mousemove") {
+        if (e.target.textContent === "START") {
+            e.target.style.backgroundColor = "black";
+            e.target.style.color = "green";
+        } else {
+            e.target.style.backgroundColor = "black";
+            e.target.style.color = "red";
+        }
+    } else {
+        if (e.target.textContent === "START") {
+            e.target.style.backgroundColor = "green";
+            e.target.style.color = "black";
+        } else {
+            e.target.style.backgroundColor = "red";
+            e.target.style.color = "black";
+        }
+    }
+}
+
+function copy() {
+    let value = `${hoursText.textContent}:${minsText.textContent}:${secondsText.textContent}.${milliText.textContent}`;
+
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(value);
+
+    // Alert the copied text
+    copyMessage.style.display = "inline";
+    copyText.textContent = value;
+
+    setTimeout(removeCopyMessage, 2000);
+}
+
+function removeCopyMessage() {
+    copyMessage.style.display = "none";
+    copyText.textContent = "";
+}
+
+const scrollToBottom = () => {
+    timeContainer.scrollTo(0, timesList.children.length * 31);
+    console.log(timesList.children.length * 31);
+};
+
 // Event Listeners
-changeBGButton.addEventListener("click", changeBG);
+changeBGButton.addEventListener("click", changeBG, 100);
 startStop.addEventListener("click", startStopwatch);
+startStop.addEventListener("mousemove", changeButtonColor);
+startStop.addEventListener("mouseout", changeButtonColor);
 resetButton.addEventListener("click", reset);
 splitButton.addEventListener("click", addTime);
 clearTimesButton.addEventListener("click", clearTimes);
+copyButton.addEventListener("click", copy);
