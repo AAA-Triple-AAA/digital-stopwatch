@@ -7,15 +7,14 @@ const imageArray = [
     "../images/school-gym.jpg",
 ];
 const bgImage = document.querySelector(".bg-img");
+const changeBGButton = document.querySelector("#change-bg");
 
-// Target buttons
+// Stopwatch timer control buttons
 const startStop = document.querySelector("#start-stop-button");
 const splitButton = document.querySelector("#split-button");
 const resetButton = document.querySelector("#reset-button");
-const changeBGButton = document.querySelector("#change-bg");
-const copyButton = document.querySelector(".copy");
 
-// Target individual clock elements
+// Individual time digits
 const milliText = document.querySelector("#m-secs");
 const secondsText = document.querySelector("#sec");
 const minsText = document.querySelector("#min");
@@ -27,12 +26,13 @@ const timesList = document.querySelector(".times");
 const clearTimesButton = document.querySelector(".clear-button");
 
 // Copy Elements
+const copyButton = document.querySelector(".copy");
 const copyMessage = document.querySelector(".copy-message");
 const copyText = document.querySelector(".copied-text");
 
-// Time variables
+// General stop watch variables
 let startTime;
-let elapsedTime = 0;
+let elapsedTime = 0; // stop time - start time
 let minuteCount = 0;
 let hourCount = 0;
 let firstRun = true;
@@ -68,11 +68,12 @@ function stopStopwatch() {
 }
 
 function updateStopwatch() {
+    // Get the latest millisecond information
     let getMilli = milliseconds();
 
     // Display milliseconds
     let milli = "" + getMilli;
-    milli = milli.slice(-3);
+    milli = milli.slice(-3); // Takes the last 3 digits
     milliText.textContent = milli;
 
     // Display seconds
@@ -127,6 +128,7 @@ function reset() {
     }
 }
 
+// Function to add an interval of time using the yellow split button
 function addTime() {
     if (isRunning) {
         timeContainer.style.display = "block";
@@ -160,7 +162,7 @@ function generateIntervalDisplay(interval) {
         milliInterval = "0" + milliInterval;
     }
 
-    // SAFEGUARD
+    // SAFEGUARD CONDITION
     if (milliInterval.length > 3) {
         milliInterval = milliInterval.slice(-3);
     }
@@ -180,9 +182,11 @@ function generateIntervalDisplay(interval) {
         hourInterval = "0" + hourInterval;
     }
 
+    // 00:00:00.000
     return `${hourInterval}:${minuteInterval}:${secondInterval}.${milliInterval}`;
 }
 
+// Clear button function
 function clearTimes() {
     timesList.innerHTML = "";
     timeContainer.style.display = "none";
@@ -199,6 +203,7 @@ function changeBG() {
     bgImage.style.backgroundImage = `url(${imageArray[imageIndex]})`;
 }
 
+// Hover functionality for start and stop button
 function changeButtonColor(e) {
     if (e.type === "mousemove") {
         if (e.target.textContent === "START") {
@@ -219,16 +224,16 @@ function changeButtonColor(e) {
     }
 }
 
+// Function to copy time shown on stopwatch to clipboard (taken from: https://www.w3schools.com/howto/howto_js_copy_clipboard.asp)
 function copy() {
     let value = `${hoursText.textContent}:${minsText.textContent}:${secondsText.textContent}.${milliText.textContent}`;
 
-    // Copy the text inside the text field
     navigator.clipboard.writeText(value);
 
-    // Alert the copied text
     copyMessage.style.display = "inline";
     copyText.textContent = value;
 
+    // Message is removed after 2 seconds
     setTimeout(removeCopyMessage, 2000);
 }
 
@@ -237,6 +242,7 @@ function removeCopyMessage() {
     copyText.textContent = "";
 }
 
+// Function to keep the split time list at the bottom
 const scrollToBottom = () => {
     timeContainer.scrollTo(0, timesList.children.length * 31);
     console.log(timesList.children.length * 31);
@@ -244,10 +250,15 @@ const scrollToBottom = () => {
 
 // Event Listeners
 changeBGButton.addEventListener("click", changeBG, 100);
+
 startStop.addEventListener("click", startStopwatch);
 startStop.addEventListener("mousemove", changeButtonColor);
 startStop.addEventListener("mouseout", changeButtonColor);
+
 resetButton.addEventListener("click", reset);
+
 splitButton.addEventListener("click", addTime);
+
 clearTimesButton.addEventListener("click", clearTimes);
+
 copyButton.addEventListener("click", copy);

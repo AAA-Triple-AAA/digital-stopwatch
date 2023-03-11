@@ -48,6 +48,7 @@ body {
 }
 
 .container {
+    min-width: 460px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -60,7 +61,6 @@ body {
     padding: 30px;
     border-radius: 5px;
     background-color: black;
-    min-width: 460px;
 }
 
 .clock {
@@ -87,13 +87,13 @@ body {
 }
 
 .button {
+    min-width: 67px;
     font-family: Helvetica, sans-serif;
     font-size: 16px;
     font-weight: bold;
     padding: 6px;
-    border-radius: 2px;
     border: 1px solid white;
-    min-width: 67px;
+    border-radius: 2px;
 }
 
 #start-stop-button {
@@ -134,25 +134,19 @@ body {
 }
 
 .times-container {
-    position: absolute;
-    top: 200px;
     width: 460px;
     max-height: 300px;
-
+    position: absolute;
+    top: 200px;
     display: none;
-
-    list-style-position: inside;
-
     color: red;
     font-family: digitalFont, sans-serif;
     font-size: 20px;
-
+    list-style-position: inside;
     padding: 0px 0px 20px 0px;
-
     border-radius: 5px;
-    background-color: black;
-
     overflow-y: scroll;
+    background-color: black;
 }
 
 .clear-button {
@@ -184,6 +178,7 @@ body {
     color: red;
     font-size: 20px;
     border: 0;
+    border-radius: 5px;
     background-color: black;
 }
 
@@ -193,9 +188,9 @@ body {
 
 .copy-message {
     position: absolute;
-    font-family: digitalFont, sans-serif;
-    display: none;
     top: 3px;
+    display: none;
+    font-family: digitalFont, sans-serif;
     padding: 3px;
     background-color: white;
 }
