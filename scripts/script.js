@@ -18,24 +18,38 @@ const secondsText = document.querySelector("#sec");
 const minsText = document.querySelector("#min");
 const hoursText = document.querySelector("#hour");
 
+// Split Interval List
+const timeContainer = document.querySelector(".times-container");
+const timesList = document.querySelector(".times");
+const clearTimesButton = document.querySelector(".clear-button");
+
 // Time variables
 let startTime;
 let elapsedTime = 0;
 let minuteCount = 0;
 let hourCount = 0;
+let firstRun = true;
+let isRunning = false;
 let stopWatchInterval;
+let lastSnapshot;
 
 // Event Functions
 function startStopwatch(e) {
     if (e.target.textContent === "STOP") {
         stopStopwatch();
         elapsedTime = new Date().getTime() - startTime + elapsedTime;
+        isRunning = false;
         e.target.textContent = "START";
         e.target.style = "background-color: green;";
     } else {
         e.target.textContent = "STOP";
         e.target.style.backgroundColor = "red";
         startTime = new Date().getTime();
+        if (firstRun) {
+            lastSnapshot = startTime;
+        }
+        isRunning = true;
+        firstRun = false;
         stopWatchInterval = setInterval(updateStopwatch, 1);
     }
 }
@@ -80,8 +94,6 @@ function updateStopwatch() {
     if (hours > 99) {
         stopStopwatch();
     }
-
-    console.log(seconds);
 }
 
 function milliseconds() {
@@ -92,17 +104,72 @@ function milliseconds() {
 
 // Function to reset all variables and time displayed
 function reset() {
-    stopStopwatch();
-    elapsedTime = 0;
-    minuteCount = 0;
-    hourCount = 0;
-    milliText.textContent = "000";
-    secondsText.textContent = "00";
-    minsText.textContent = "00";
-    hoursText.textContent = "00";
+    if (!isRunning) {
+        stopStopwatch();
+        elapsedTime = 0;
+        minuteCount = 0;
+        hourCount = 0;
+        firstRun = true;
+        milliText.textContent = "000";
+        secondsText.textContent = "00";
+        minsText.textContent = "00";
+        hoursText.textContent = "00";
+    }
 }
 
-// TODO: SPLIT BUTTON FUNCTIONALITY
+function addTime() {
+    if (isRunning) {
+        timeContainer.style.display = "block";
+
+        let timeSnapshot = new Date().getTime();
+        let interval = timeSnapshot - lastSnapshot;
+        let intervalDisplay = generateIntervalDisplay(interval);
+        lastSnapshot = timeSnapshot;
+
+        let listItem = document.createElement("li");
+        listItem.textContent = intervalDisplay;
+        listItem.classList.add("list-item");
+
+        timesList.append(listItem);
+
+        return intervalDisplay;
+    }
+}
+
+function generateIntervalDisplay(interval) {
+    let milliInterval = interval;
+    if (milliInterval > 99) {
+        milliInterval = "" + milliInterval;
+        milliInterval = milliInterval.slice(-3);
+    }
+    if (milliInterval < 10) {
+        milliInterval = "00" + milliInterval;
+    } else if (milliInterval < 100) {
+        milliInterval = "0" + milliInterval;
+    }
+
+    let secondInterval = Math.floor(interval / 1000);
+    if (secondInterval < 10) {
+        secondInterval = "0" + secondInterval;
+    }
+
+    let minuteInterval = Math.floor(interval / 60000);
+    if (minuteInterval < 10) {
+        minuteInterval = "0" + minuteInterval;
+    }
+
+    let hourInterval = Math.floor(interval / 3600000);
+    if (hourInterval < 10) {
+        hourInterval = "0" + hourInterval;
+    }
+
+    return `${hourInterval}:${minuteInterval}:${secondInterval}.${milliInterval}`;
+}
+
+function clearTimes() {
+    timesList.innerHTML = "";
+    timeContainer.style.display = "none";
+}
 
 // Change Background Function
 function changeBG() {
@@ -119,3 +186,5 @@ function changeBG() {
 changeBGButton.addEventListener("click", changeBG);
 startStop.addEventListener("click", startStopwatch);
 resetButton.addEventListener("click", reset);
+splitButton.addEventListener("click", addTime);
+clearTimesButton.addEventListener("click", clearTimes);

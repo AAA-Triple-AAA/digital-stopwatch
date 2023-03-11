@@ -93,6 +93,7 @@ body {
     padding: 6px;
     border-radius: 2px;
     border: 1px solid white;
+    min-width: 67px;
 }
 
 #start-stop-button {
@@ -105,4 +106,75 @@ body {
 #reset-button {
     color: white;
     background-color: black;
+}
+
+#start-stop-button,
+#split-button,
+#reset-button {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.times-container {
+    position: absolute;
+    top: 200px;
+    width: 460px;
+    max-height: 300px;
+
+    display: none;
+
+    list-style-position: inside;
+
+    color: red;
+    font-family: digitalFont, sans-serif;
+    font-size: 20px;
+
+    padding: 0px 0 20px 0px;
+
+    border-radius: 5px;
+    background-color: black;
+
+    overflow-y: scroll;
+}
+
+.clear-button {
+    position: relative;
+    left: 400px;
+    color: white;
+    padding: 2px;
+    border: 1px solid white;
+    background-color: black;
+}
+
+.clear-button:hover {
+    color: red;
+}
+
+.list-item {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: red;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
