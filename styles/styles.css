@@ -1,29 +1,32 @@
 @font-face {
     font-family: digitalFont;
-    src: url(./fonts/digital-dream.fat.ttf);
+    src: url(../fonts/digital-dream.fat.ttf);
 }
 
 * {
     box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 .bg-img {
     width: 100%;
-    background-image: url(./images/track-and-field.jpg);
-    filter: blur(3px);
     height: 100%;
+    background-image: url(../images/mountain-climbing.jpg);
+    filter: blur(3px);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 body {
-    height: 100vh;
     width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
+    padding: 0;
 }
 
 .bg-button {
@@ -33,25 +36,31 @@ body {
     font-family: Helvetica, sans-serif;
     font-weight: bold;
     padding: 6px;
-    background-color: rgba(208, 208, 208, 0.5);
     border: 1px dotted black;
     margin-top: 10px;
     margin-left: 10px;
+    background-color: rgba(208, 208, 208, 0.5);
+}
+
+.bg-button:hover {
+    color: red;
+    background-color: black;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: center;
-    padding: 30px;
-    border-radius: 5px;
-    background-color: black;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: center;
     white-space: nowrap;
+    padding: 30px;
+    border-radius: 5px;
+    background-color: black;
+    min-width: 460px;
 }
 
 .clock {
@@ -82,6 +91,18 @@ body {
     font-size: 16px;
     font-weight: bold;
     padding: 6px;
-    border-radius: 0;
-    border: 0;
+    border-radius: 2px;
+    border: 1px solid white;
+}
+
+#start-stop-button {
+    background-color: green;
+}
+#split-button {
+    background-color: yellow;
+}
+
+#reset-button {
+    color: white;
+    background-color: black;
 }
