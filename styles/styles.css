@@ -3,16 +3,24 @@
     src: url(../fonts/digital-dream.fat.ttf);
 }
 
+:root {
+    --bg-color: transparent;
+}
+
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
+html {
+    width: 100vw;
+}
+
 .bg {
-    width: 100%;
-    height: 100%;
-    background-color: red;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color);
 }
 
 body {
@@ -66,7 +74,7 @@ body {
 .digit,
 .milli {
     display: inline;
-    color: red;
+    color: var(--bg-color);
     font-size: 60px;
     font-family: digitalFont, sans-serif;
     margin: 0;
@@ -135,7 +143,7 @@ body {
     position: absolute;
     top: 200px;
     display: none;
-    color: red;
+    color: var(--bg-color);
     font-family: digitalFont, sans-serif;
     font-size: 20px;
     list-style-position: inside;
@@ -171,7 +179,7 @@ body {
     position: absolute;
     left: 437px;
     top: 150px;
-    color: red;
+    color: var(--bg-color);
     font-size: 20px;
     border: 0;
     border-radius: 5px;
@@ -213,4 +221,42 @@ body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+@media screen and (max-width: 460px) {
+    html {
+        width: 100vw;
+    }
+    .container {
+        min-width: 400px;
+        position: fixed;
+        padding: 10px;
+    }
+    .digit {
+        margin: -7px;
+    }
+    .milli-container {
+        position: absolute;
+        top: 75px;
+        left: 350px;
+    }
+    .copy {
+        left: 377px;
+        top: 110px;
+    }
+    .times-container {
+        width: 400px;
+        margin-top: -40px;
+    }
+    .clear-button {
+        left: 340px;
+    }
+}
+
+@media screen and (max-width: 194px) {
+    .bg-button {
+        width: 100%;
+        position: fixed;
+        margin: 0;
+    }
 }

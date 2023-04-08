@@ -1,5 +1,6 @@
 const bg = document.querySelector(".bg");
 const changeBGButton = document.querySelector("#change-bg");
+const root = document.querySelector(":root");
 
 // Stopwatch timer control buttons
 const startStop = document.querySelector("#start-stop-button");
@@ -69,22 +70,16 @@ function updateStopwatch() {
     milliText.textContent = milli;
 
     // Display seconds
-    let seconds = "" + Math.floor(getMilli / 1000) - minuteCount * 60;
-    if (seconds < 10) {
-        seconds = "0" + seconds;
-    }
+    let seconds = Math.floor(getMilli / 1000) - minuteCount * 60;
+    seconds = `${seconds < 10 ? "0" : ""}${seconds}`;
     secondsText.textContent = seconds;
 
-    let minutes = "" + Math.floor(getMilli / 60000) - hourCount * 60;
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
+    let minutes = Math.floor(getMilli / 60000) - hourCount * 60;
+    minutes = `${minutes < 10 ? "0" : ""}${minutes}`;
     minsText.textContent = minutes;
 
-    let hours = "" + Math.floor(getMilli / 3600000);
-    if (hours < 10) {
-        hours = "0" + hours;
-    }
+    let hours = Math.floor(getMilli / 3600000);
+    hours = `${hours < 10 ? "0" : ""}${hours}`;
     hoursText.textContent = hours;
 
     if (seconds > 59) {
@@ -160,19 +155,13 @@ function generateIntervalDisplay(interval) {
     }
 
     let secondInterval = Math.floor(interval / 1000);
-    if (secondInterval < 10) {
-        secondInterval = "0" + secondInterval;
-    }
+    secondInterval = `${secondInterval < 10 ? "0" : ""}${secondInterval}`;
 
     let minuteInterval = Math.floor(interval / 60000);
-    if (minuteInterval < 10) {
-        minuteInterval = "0" + minuteInterval;
-    }
+    minuteInterval = `${minuteInterval < 10 ? "0" : ""}${minuteInterval}`;
 
     let hourInterval = Math.floor(interval / 3600000);
-    if (hourInterval < 10) {
-        hourInterval = "0" + hourInterval;
-    }
+    hourInterval = `${hourInterval < 10 ? "0" : ""}${hourInterval}`;
 
     // 00:00:00.000
     return `${hourInterval}:${minuteInterval}:${secondInterval}.${milliInterval}`;
@@ -187,10 +176,11 @@ function clearTimes() {
 // Change Background Function
 function changeBG() {
     // If at the last background in array, change to the first
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
+    const r = Math.floor(Math.random() * 196) + 59;
+    const g = Math.floor(Math.random() * 196) + 59;
+    const b = Math.floor(Math.random() * 196) + 59;
     bg.style.background = `rgb(${r}, ${g}, ${b})`;
+    root.style.setProperty("--bg-color", `rgb(${r}, ${g}, ${b})`);
 }
 
 // Hover functionality for start and stop button
@@ -235,7 +225,6 @@ function removeCopyMessage() {
 // Function to keep the split time list at the bottom
 const scrollToBottom = () => {
     timeContainer.scrollTo(0, timesList.children.length * 31);
-    console.log(timesList.children.length * 31);
 };
 
 changeBG();
@@ -248,9 +237,6 @@ startStop.addEventListener("mousemove", changeButtonColor);
 startStop.addEventListener("mouseout", changeButtonColor);
 
 resetButton.addEventListener("click", reset);
-
 splitButton.addEventListener("click", addTime);
-
 clearTimesButton.addEventListener("click", clearTimes);
-
 copyButton.addEventListener("click", copy);
